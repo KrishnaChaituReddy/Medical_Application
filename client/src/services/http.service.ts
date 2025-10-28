@@ -72,7 +72,7 @@ export class HttpService {
     return this.http.get<any>(`${this.serverName}/orders`);
   }
 
-  updateOrderStatus(orderId:number,newStatus:string):Observable<any>{
+e  UpdateOrderStatus(orderId:number,newStatus:string):Observable<any>{
     return this.http.put<any>(`${this.serverName}/order/update/${orderId}`,{status:newStatus});
   }
   

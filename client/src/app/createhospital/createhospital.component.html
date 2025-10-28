@@ -25,7 +25,8 @@
 <h2>Hospital List</h2>
 <ul>
   <li *ngFor="let hospital of hospitalList">
-    {{ hospital.name }} - {{ hospital.location }}
+    <strong>Hospital Name:</strong> {{ hospital.name }}<br />
+    <strong>Location:</strong> {{ hospital.location }}<br />
     <button (click)="Addequipment(hospital)">Assign Equipment</button>
   </li>
 </ul>
