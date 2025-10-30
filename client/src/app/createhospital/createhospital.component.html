@@ -27,6 +27,7 @@
             </div>
           </div>
 
+<<<<<<< HEAD
           <!-- Submit Button -->
           <div class="col-md-4 d-flex justify-content-end">
             <button type="submit" class="btn btn-success btn-lg px-4" [disabled]="itemForm.invalid">
@@ -35,6 +36,16 @@
           </div>
         </div>
       </form>
+=======
+<h2>Hospital List</h2>
+<ul>
+  <li *ngFor="let hospital of hospitalList">
+    <strong>Hospital Name:</strong> {{ hospital.name }}<br />
+    <strong>Location:</strong> {{ hospital.location }}<br />
+    <button (click)="Addequipment(hospital)">Assign Equipment</button>
+  </li>
+</ul>
+>>>>>>> 2742654162c09a25e73d10a1552c1a65db540bcb
 
       <!-- Messages -->
       <div *ngIf="showError" class="alert alert-danger mt-3">{{ errorMessage }}</div>
