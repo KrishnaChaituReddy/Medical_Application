@@ -1,16 +1,13 @@
 package com.wecp.medicalequipmentandtrackingsystem.service;
 
-
-import com.wecp.medicalequipmentandtrackingsystem.entitiy.Equipment;
 import com.wecp.medicalequipmentandtrackingsystem.entitiy.Maintenance;
+import com.wecp.medicalequipmentandtrackingsystem.exceptions.ResourceNotFoundException;
 import com.wecp.medicalequipmentandtrackingsystem.repository.EquipmentRepository;
 import com.wecp.medicalequipmentandtrackingsystem.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MaintenanceService {
@@ -31,23 +28,28 @@ public class MaintenanceService {
     }
 
     //update's the maintenance using maintenanceId (done by technician)
-    public Maintenance updateMaintenance(long maintenanceId , Maintenance updatedMaintenance){
-        Maintenance existingMaintenance = maintenanceRepository.findById(maintenanceId).get();
+    public Maintenance updateMaintenance(long maintenanceId, Maintenance updatedMaintenance) {
+        Maintenance existingMaintenance = maintenanceRepository.findById(maintenanceId)
+            .orElseThrow(() -> new ResourceNotFoundException("Maintenance not found!"));
 
-        if(existingMaintenance != null){
-            
-            updatedMaintenance.setId(existingMaintenance.getId());
+        existingMaintenance.setDescription(updatedMaintenance.getDescription());
+        existingMaintenance.setCompletedDate(updatedMaintenance.getCompletedDate());
+        existingMaintenance.setStatus(updatedMaintenance.getStatus());
 
-            return maintenanceRepository.save(updatedMaintenance);
-        }else{
-            throw new RuntimeException("Maintenance not found!");
-        }
+        return maintenanceRepository.save(existingMaintenance);
+    }
+    
+    //create a maintenance (done by hospital)
+    public Maintenance createMaintenance(Long equipmentId, Maintenance maintenance) {
+        maintenance.setEquipment(equipmentRepository.findById(equipmentId)
+            .orElseThrow(() -> new ResourceNotFoundException("Equipment not found with ID: " + equipmentId)));
+        return maintenanceRepository.save(maintenance);
     }
 
-    public Maintenance createMaintenance(Long equipmentId, Maintenance maintenance)
-    {
-        maintenance.setEquipment(equipmentRepository.findById(equipmentId).get());
-        return maintenanceRepository.save(maintenance);
+    //find maintenance by id (extra method)
+    public Maintenance findById(Long maintenanceId) {
+        return maintenanceRepository.findById(maintenanceId)
+        .orElseThrow(() -> new ResourceNotFoundException("Maintenance not found with ID: " + maintenanceId));
     }
 
     

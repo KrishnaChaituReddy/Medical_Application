@@ -1,1 +1,74 @@
-//todo: complete missing code..
+<div class="container mt-4">
+    <h3 class="mb-3">Request Equipment</h3>
+    <div class="card shadow-sm">
+      <div class="card-header fw-bold">
+        Order Equipment
+      </div>
+      <div class="card-body">
+        <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <!-- Hospitals Dropdown -->
+            <div class="col-md-6">
+              <label for="hospital" class="form-label">Hospitals</label>
+              <select id="hospital" class="form-control" formControlName="hospital">
+                <option value="">Select Hospital</option>
+                <option *ngFor="let h of hospitals" [value]="h">{{ h }}</option>
+              </select>
+              <div *ngIf="equipmentForm.get('hospital')?.invalid && equipmentForm.get('hospital')?.touched" class="text-danger">
+                Hospital is required.
+              </div>
+            </div>
+  
+            <!-- Quantity -->
+            <div class="col-md-6">
+              <label for="quantity" class="form-label">Quantity</label>
+              <input type="number" id="quantity" class="form-control" formControlName="quantity" placeholder="Enter quantity" />
+              <div *ngIf="equipmentForm.get('quantity')?.invalid && equipmentForm.get('quantity')?.touched" class="text-danger">
+                Quantity must be greater than 0.
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <!-- Equipment -->
+            <div class="col-md-6">
+              <label for="equipment" class="form-label">Equipment</label>
+              <!-- <input type="text" id="equipment" class="form-control" formControlName="equipment" placeholder="Enter equipment" /> -->
+              <select id="equipment" class="form-control" formControlName="equipment">
+                <option value="">Select Hospital</option>
+                <option *ngFor="let e of equipments" [value]="e">{{ e }}</option>
+              </select>
+              <div *ngIf="equipmentForm.get('equipment')?.invalid && equipmentForm.get('equipment')?.touched" class="text-danger">
+                Equipment is required.
+              </div>
+            </div>
+  
+            <!-- Status Dropdown -->
+            <div class="col-md-6">
+              <label for="status" class="form-label">Status</label>
+              <select id="status" class="form-control" formControlName="status">
+                <option value="">Select Status</option>
+                <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+              </select>
+              <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched" class="text-danger">
+                Status is required.
+              </div>
+            </div>
+          </div>
+  
+          <!-- Order Date -->
+          <div class="mb-3">
+            <label for="orderDate" class="form-label">Order Date</label>
+            <input type="date" id="orderDate" class="form-control" formControlName="orderDate" />
+            <div *ngIf="equipmentForm.get('orderDate')?.invalid && equipmentForm.get('orderDate')?.touched" class="text-danger">
+              Order Date is required.
+            </div>
+          </div>
+  
+          <button type="submit" class="btn btn-outline-dark px-4" [disabled]="equipmentForm.invalid">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>

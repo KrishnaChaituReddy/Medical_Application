@@ -26,7 +26,7 @@
             <option value="">Please Choose</option>
             <option *ngFor="let hospital of hospitalList" [value]="hospital.id">{{ hospital.name }}</option>
           </select>
-          <div *ngIf="itemForm.get('hospitalId')?.errors?.['required']" class="text-danger">
+          <div *ngIf="itemForm.get('hospitalId')?.touched && itemForm.get('hospitalId')?.errors?.['required']" class="text-danger">
             Hospital is required.
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="col-md-6 mb-3">
           <label>Scheduled Date</label>
           <input type="date" class="form-control" formControlName="scheduledDate" />
-          <div *ngIf="itemForm.get('scheduledDate')?.errors?.['required']" class="text-danger">
+          <div *ngIf="itemForm.get('scheduledDate')?.touched &&itemForm.get('scheduledDate')?.errors?.['required']" class="text-danger">
             Scheduled date is required.
           </div>
           <div *ngIf="itemForm.get('scheduledDate')?.errors?.['invalidDate']" class="text-danger">
@@ -52,7 +52,7 @@
             <option value="">Please Choose</option>
             <option *ngFor="let equipment of equipmentList" [value]="equipment.id">{{ equipment.name }}</option>
           </select>
-          <div *ngIf="itemForm.get('equipmentId')?.errors?.['required']" class="text-danger">
+          <div *ngIf="itemForm.get('equipmentId')?.touched && itemForm.get('equipmentId')?.errors?.['required']" class="text-danger">
             Equipment is required.
           </div>
         </div>
@@ -60,16 +60,7 @@
         <!-- Completed Date -->
         <div class="col-md-6 mb-3">
           <label>Completed Date</label>
-          <input type="date" class="form-control" formControlName="completedDate" />
-          <div *ngIf="itemForm.get('completedDate')?.errors?.['required']" class="text-danger">
-            Completed date is required.
-          </div>
-          <div *ngIf="itemForm.get('completedDate')?.errors?.['invalidDate']" class="text-danger">
-            Completed date cannot be in the past.
-          </div>
-          <div *ngIf="itemForm.errors?.['invalidOrder']" class="text-danger">
-            Completed date cannot be before scheduled date.
-          </div>
+          <input type="date" class="form-control" formControlName="completedDate"/>
         </div>
       </div>
   
@@ -77,7 +68,7 @@
       <div class="mb-3">
         <label>Description</label>
         <input type="text" class="form-control" formControlName="description" placeholder="Description" />
-        <div *ngIf="itemForm.get('description')?.errors?.['required']" class="text-danger">
+        <div *ngIf="itemForm.get('description')?.touched && itemForm.get('description')?.errors?.['required']" class="text-danger">
           Description is required.
         </div>
       </div>
@@ -91,7 +82,7 @@
           <option value="Pending">Pending</option>
           <option value="Completed">Completed</option>
         </select>
-        <div *ngIf="itemForm.get('status')?.errors?.['required']" class="text-danger">
+        <div *ngIf="itemForm.get('status')?.touched && itemForm.get('status')?.errors?.['required']" class="text-danger">
           Status is required.
         </div>
       </div>

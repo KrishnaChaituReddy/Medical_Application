@@ -1,34 +1,60 @@
-<h1>MEDICAL EQUIPMENT & TRACKING SYSTEM</h1>
-  <h3>Please enter your useranme and password!</h3>
-<div class="login-form-container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Medical Equipment Tracking</title>
+
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+
+  <div class="card shadow-sm border-0 p-4" style="max-width: 400px; width: 100%;">
     
-      <form [formGroup]="ItemForm" (ngSubmit)="onSubmit()" >
-         
-              <label for="username">Username</label> <br>
-              <input id="username" formControlName="username" type="text" placeholder="Enter Username"/> <br>
-               <div *ngIf="ItemForm.get('username')?.invalid && ItemForm.get('username')?.touched" class="error">
-                  <small *ngIf="ItemForm.get('username')?.hasError('required')">Username is required.</small>
-              </div>
-              <label for="password">Password</label>  <br>
-              <input id="password" formControlName="password" type="password" placeholder="Enter Password"/> <br>
-              <div *ngIf="ItemForm.get('password')?.invalid && ItemForm.get('password')?.touched" class="error">
-            </div>
-          <button type="submit"[disabled]="ItemForm.invalid">Login</button>
-  
-          <div class="form-footer">
-              <p>
-                  Don't have an account? Please 
-                  <a routerLink="/registration" class="link">Sign up</a>
-              </p>
-          </div>
-  
-          <div *ngIf="successMessage" class="success-message">
-              <p>{{ successMessage }}</p>
-          </div>
-  
-          <div *ngIf="errorMessage" class="error-message">
-              <p>{{ errorMessage }}</p>
-          </div>
-      </form>
+    <!-- Title and Subtitle -->
+    <div class="text-center mb-4">
+      <h5 class="text-primary fw-semibold">MEDICAL EQUIPMENT & TRACKING SYSTEM</h5>
+      <p class="text-muted small mb-0">Please enter your username and password!</p>
+    </div>
+
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input type="text" id="username" formControlName="username" class="form-control" placeholder="Enter Username">
+        <div *ngIf="itemForm.get('username')?.invalid && itemForm.get('username')?.touched" class="text-danger mt-1">
+          <small *ngIf="itemForm.get('username')?.hasError('required')">Username is required.</small>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control" placeholder="Enter Password">
+        <div *ngIf="itemForm.get('password')?.invalid && itemForm.get('password')?.touched" class="text-danger mt-1">
+          <small *ngIf="itemForm.get('password')?.hasError('required')">Password is required.</small>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-success btn-lg" [disabled]="itemForm.invalid">
+          Login
+        </button>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center">
+        <p class="mb-0 small">
+          Don't have an account? 
+          <a routerLink="/registration" class="text-primary fw-bold">Sign up</a>
+        </p>
+      </div>
+
+      <!-- Messages -->
+      <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">Login successful!</div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">Invalid credentials.</div>
+    </form>
   </div>
-  
+
+</body>
+</html>

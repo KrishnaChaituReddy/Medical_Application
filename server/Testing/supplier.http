@@ -1,0 +1,38 @@
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "username" : "oyesupplier",
+    "password" : "Aditya@335",
+    "email" : "supplier2@gmail.com",
+    "role" : "SUPPLIER"
+}
+
+###
+
+POST http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "username" : "oyesupplier",
+    "password" : "Aditya@335"
+}
+
+###
+
+GET http://localhost:5000/api/supplier/orders
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzdXBwbGllciIsInJvbGUiOiJTVVBQTElFUiIsImlhdCI6MTc2MTU1MDM0MCwiZXhwIjoxNzYxNjM2NzQwfQ.nTxJSJfI-nSaQhgmWgiMvwxnt-taf2K_WlhcOwsavIbdZAig8XSzUXJiN6srhJyqfYWuyB-FMPEmZsgliJhVMw
+
+###
+
+PUT http://localhost:5000/api/supplier/order/update/5?newStatus=Delivered
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzdXBwbGllciIsInJvbGUiOiJTVVBQTElFUiIsImlhdCI6MTc2MTU1MDM0MCwiZXhwIjoxNzYxNjM2NzQwfQ.nTxJSJfI-nSaQhgmWgiMvwxnt-taf2K_WlhcOwsavIbdZAig8XSzUXJiN6srhJyqfYWuyB-FMPEmZsgliJhVMw
+Content-Type: application/json
+
+### trying to access technician endpoints with the supplier token
+
+#403 Forbidden
+GET http://localhost:5000/api/technician/maintenance
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzdXBwbGllciIsInJvbGUiOiJTVVBQTElFUiIsImlhdCI6MTc2MTU1MDM0MCwiZXhwIjoxNzYxNjM2NzQwfQ.nTxJSJfI-nSaQhgmWgiMvwxnt-taf2K_WlhcOwsavIbdZAig8XSzUXJiN6srhJyqfYWuyB-FMPEmZsgliJhVMw
+
+###

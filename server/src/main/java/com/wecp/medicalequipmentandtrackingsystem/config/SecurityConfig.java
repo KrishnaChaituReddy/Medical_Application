@@ -41,9 +41,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
-
-    
-    
         protected void configure(HttpSecurity http) throws Exception {
             http
             .cors() // Enable CORS
@@ -65,7 +62,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter{
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        
         return super.authenticationManagerBean();
     }
 

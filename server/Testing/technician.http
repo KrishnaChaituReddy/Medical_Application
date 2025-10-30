@@ -1,0 +1,35 @@
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "username" : "oyetechnician",
+    "password" : "Aditya@335",
+    "email" : "technician2@gmail.com",
+    "role" : "TECHNICIAN"
+}
+
+###
+
+POST http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "username" : "oyetechnician",
+    "password" : "Aditya@335"
+}
+
+###
+
+GET http://localhost:5000/api/technician/maintenance
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWV0ZWNobmljaWFuIiwicm9sZSI6IlRFQ0hOSUNJQU4iLCJpYXQiOjE3NjE2NDU4OTIsImV4cCI6MTc2MTczMjI5Mn0._f5e9vcqbEzS2xQ0m4rCwP06cuoKlJZ6ozMhqEYyR77FO_UsonatXfEmwMjhbvmZonBSpyAd7KwQH_cYAle-cA
+
+###
+
+PUT http://localhost:5000/api/technician/maintenance/update/4
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWV0ZWNobmljaWFuIiwicm9sZSI6IlRFQ0hOSUNJQU4iLCJpYXQiOjE3NjE1NDg0MTAsImV4cCI6MTc2MTYzNDgxMH0.JegRpovm9plKEm9bI88UxDnMTlhohppCMrZUh8Jhx8fJMp1Twppk2TNMKm6NXnBpELSEt6JoBE7TlpjbWSrQtQ
+Content-Type: application/json
+
+{
+    "completedDate" : "2025-10-24",
+    "status": "Complete"
+}

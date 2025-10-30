@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome Headless 112.0.5614.0 (Linux x86_64)" package="" timestamp="2025-10-28T04:19:21" id="0" hostname="ip-172-31-24-27" tests="28" errors="0" failures="0" time="0.344">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/112.0.5614.0 Safari/537.36"/>
+  </properties>
+  <testcase name="CreatehospitalComponent should initialize itemForm with required fields" time="0.101" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).CreatehospitalComponent"/>
+  <testcase name="CreatehospitalComponent should mark name field as invalid if empty" time="0.012" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).CreatehospitalComponent"/>
+  <testcase name="CreatehospitalComponent should mark location field as invalid if empty" time="0.008" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).CreatehospitalComponent"/>
+  <testcase name="HttpService should update order status" time="0.004" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should add equipment" time="0.002" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get orders" time="0.003" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get maintenance tasks" time="0.002" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get hospitals" time="0.002" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should update maintenance" time="0.003" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should order equipment" time="0.004" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should schedule maintenance" time="0.002" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should create hospital" time="0.002" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).HttpService"/>
+  <testcase name="LoginComponent should have invalid form if username and password are empty" time="0.021" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have invalid form if username or password is empty" time="0.012" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have valid form if username and password are provided" time="0.005" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="MaintenanceComponent should initialize itemForm with required fields" time="0.03" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).MaintenanceComponent"/>
+  <testcase name="MaintenanceComponent should mark scheduledDate field as invalid if empty" time="0.011" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).MaintenanceComponent"/>
+  <testcase name="MaintenanceComponent should mark completedDate field as invalid if empty" time="0.011" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).MaintenanceComponent"/>
+  <testcase name="MaintenanceComponent should mark description field as invalid if empty" time="0.006" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).MaintenanceComponent"/>
+  <testcase name="MaintenanceComponent should mark status field as invalid if empty" time="0.006" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).MaintenanceComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if any field is empty" time="0.017" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if email is invalid" time="0.011" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have valid form if all fields are filled correctly" time="0.012" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="ScheduleMaintenanceComponent should initialize itemForm with required fields" time="0.023" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).ScheduleMaintenanceComponent"/>
+  <testcase name="ScheduleMaintenanceComponent should mark scheduledDate field as invalid if empty" time="0.011" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).ScheduleMaintenanceComponent"/>
+  <testcase name="ScheduleMaintenanceComponent should mark completedDate field as invalid if empty" time="0.01" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).ScheduleMaintenanceComponent"/>
+  <testcase name="ScheduleMaintenanceComponent should mark description field as invalid if empty" time="0.006" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).ScheduleMaintenanceComponent"/>
+  <testcase name="ScheduleMaintenanceComponent should mark status field as invalid if empty" time="0.007" classname="Chrome_Headless_112_0_5614_0_(Linux_x86_64).ScheduleMaintenanceComponent"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

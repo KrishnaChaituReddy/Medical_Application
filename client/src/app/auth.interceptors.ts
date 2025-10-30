@@ -8,7 +8,7 @@ import {
 import { Observable } from "rxjs";
 import { HttpService } from "../services/http.service";
 import { AuthService } from "../services/auth.service";
-
+ 
  
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
           });
       return next.handle(req);
     }
-
+ 
     if (token) {
       req = req.clone({
         setHeaders: {
@@ -41,3 +41,5 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
+ 
+ 

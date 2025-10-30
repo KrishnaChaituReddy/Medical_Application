@@ -1,0 +1,57 @@
+$request-error-color: #dc3545; // Bootstrap danger color
+$request-card-radius: 8px;
+
+.request-equipment {
+  .card {
+    border-radius: $request-card-radius;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .card-header {
+      font-weight: 600;
+      font-size: 1.1rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+
+      form {
+        .row {
+          margin-bottom: 1rem;
+
+          .form-label {
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+          }
+
+          .form-control {
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+              border-color: #0d6efd;
+              box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+            }
+          }
+
+          .text-danger,
+          .error-text {
+            color: $request-error-color;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
+          }
+        }
+
+        button {
+          margin-top: 10px;
+          padding: 0.5rem 1.5rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+

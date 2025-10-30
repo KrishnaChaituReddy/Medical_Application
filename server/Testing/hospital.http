@@ -1,0 +1,122 @@
+###
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "username" : "oyeshreyas",
+    "password" : "Aditya@335",
+    "email" : "shreyas2@gmail.com",
+    "role" : "HOSPITAL"
+}
+
+###
+
+POST http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "username" : "oyeshreyas",
+    "password" : "Aditya@335"
+}
+
+### HOSPITAL CRUD
+
+POST http://localhost:5000/api/hospital/create
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjQ1NTIzLCJleHAiOjE3NjE3MzE5MjN9.61QaqHs7hG0M5e2P67DjjpjlInKnpSIk0S2uGD1EkFV9JX6ngcKZ3uFRjHkPLLaQ1JQ8jHhSkF2XSHlMC8b77Q
+Content-Type: application/json
+
+
+{
+    "name" : "Sancheti",
+    "location" : "Pune , Maharashtra"
+}
+
+###
+
+GET http://localhost:5000/api/hospitals
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjQ1NTIzLCJleHAiOjE3NjE3MzE5MjN9.61QaqHs7hG0M5e2P67DjjpjlInKnpSIk0S2uGD1EkFV9JX6ngcKZ3uFRjHkPLLaQ1JQ8jHhSkF2XSHlMC8b77Q
+
+###
+
+POST http://localhost:5000/api/hospital/equipment?hospitalId=4
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjQ1NTIzLCJleHAiOjE3NjE3MzE5MjN9.61QaqHs7hG0M5e2P67DjjpjlInKnpSIk0S2uGD1EkFV9JX6ngcKZ3uFRjHkPLLaQ1JQ8jHhSkF2XSHlMC8b77Q
+Content-Type: application/json
+
+{
+    "name" : "Xray Machine",
+    "description" : "Advanced Xray - Machine"
+}
+
+###
+
+GET http://localhost:5000/api/hospital/equipment/4
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjQ1NTIzLCJleHAiOjE3NjE3MzE5MjN9.61QaqHs7hG0M5e2P67DjjpjlInKnpSIk0S2uGD1EkFV9JX6ngcKZ3uFRjHkPLLaQ1JQ8jHhSkF2XSHlMC8b77Q
+
+###
+
+POST http://localhost:5000/api/hospital/maintenance/schedule?equipmentId=2
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjQ1NTIzLCJleHAiOjE3NjE3MzE5MjN9.61QaqHs7hG0M5e2P67DjjpjlInKnpSIk0S2uGD1EkFV9JX6ngcKZ3uFRjHkPLLaQ1JQ8jHhSkF2XSHlMC8b77Q
+Content-Type: application/json
+
+{
+
+    "description" : "It was glitching , reparing starting tomorrow",
+    "scheduledDate" : "2025-10-23",
+    "hospital" : {
+        "name" : "Apollo"
+    }
+
+}
+
+###
+
+POST http://localhost:5000/api/hospital/order?equipmentId=1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNTQwOTA4LCJleHAiOjE3NjE2MjczMDh9.4GEs9v_SDNHVHKJtqlJoaHOuy1dCzNfsixh9zNnWknU8LXNMaGi0q1RWZ9lXu7ahPOf3T2h1K41YZ9dgJtZcAA
+Content-Type: application/json
+
+{
+
+    "orderDate" : "2025-10-27",
+    "status" : "Pending",
+    "quantity" : 15,
+    "equipment" : {
+
+        "hospital" : {
+            
+        }
+
+    }
+
+}
+
+###
+
+POST http://localhost:5000/api/hospital/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJveWVzaHJleWFzIiwicm9sZSI6IkhPU1BJVEFMIiwiaWF0IjoxNzYxNjU0ODU3LCJleHAiOjE3NjE3NDEyNTd9.bVLrEboYYVm99yBqyxcNpzhFsf2Pr_AI6LqcjIKy9wpz5vS-3SGcWG9LzKOAtyHW0rGCZ5z3ITu-gyAWXxYKGg
+ 
+{
+    "name":"Hospital",
+    "location": "chennai",
+    "equipmentList":[
+        {
+            "name": "eq1",
+            "description":"eq1",
+            "hospital" : {
+                
+            }
+        },
+        {
+            "name": "eq2",
+            "description":"eq2",
+            "hospital" : {
+
+            }
+        }
+    ]
+ 
+}
+
+
+
+

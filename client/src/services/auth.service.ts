@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+ 
   private token: string | null = null;
   private isLoggedIn: boolean = false;
-
+ 
   constructor() {}
-
+ 
   // Method to save token received from login
   saveToken(token: string) {
    this.token=token;
@@ -32,7 +32,7 @@ export class AuthService {
    
   }
   getToken(): string | null {
-  
+ 
   return localStorage.getItem('authToken');
   }
   logout(){

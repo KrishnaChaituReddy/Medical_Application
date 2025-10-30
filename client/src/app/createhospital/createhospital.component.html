@@ -1,61 +1,124 @@
-<h2>Create Hospital</h2>
-<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-  <label for="name">Hospital Name</label>
-  <input id="name" formControlName="name" type="text" />
-  <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched" class="error">
-    <small *ngIf="itemForm.get('name')?.hasError('required')">Hospital name is required.</small>
-    <small *ngIf="itemForm.get('name')?.hasError('minlength')">Minimum 6 characters required.</small>
+<div class="container my-5">
+  <!-- Create Hospital Card -->
+  <div class="card shadow-lg border-0 mb-4">
+    <div class="card-header bg-info  text-white">
+      <h4 class="mb-0" style="font-style: italic">Create Hospital</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3 align-items-end">
+          <!-- Hospital Name -->
+          <div class="col-md-4">
+            <label for="name" class="form-label fw-bold">Hospital Name</label>
+            <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter hospital name" />
+            <div *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched" class="text-danger mt-1">
+              <small *ngIf="itemForm.get('name')?.hasError('required')">Hospital name is required.</small>
+              <small *ngIf="itemForm.get('name')?.hasError('minlength')">Minimum 6 characters required.</small>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="col-md-4">
+            <label for="location" class="form-label fw-bold">Location</label>
+            <input id="location" formControlName="location" type="text" class="form-control" placeholder="Enter location" />
+            <div *ngIf="itemForm.get('location')?.invalid && itemForm.get('location')?.touched" class="text-danger mt-1">
+              <small *ngIf="itemForm.get('location')?.hasError('required')">Location is required.</small>
+              <small *ngIf="itemForm.get('location')?.hasError('minlength')">Minimum 6 characters required.</small>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-md-4 d-flex justify-content-end">
+            <button type="submit" class="btn btn-success btn-lg px-4" [disabled]="itemForm.invalid">
+              <i class="bi bi-plus-circle"></i> Create Hospital
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Messages -->
+      <div *ngIf="showError" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      <div *ngIf="responseMessage" class="alert alert-success mt-3">{{ responseMessage }}</div>
+    </div>
   </div>
 
-  <label for="location">Location</label>
-  <input id="location" formControlName="location" type="text" />
-  <div *ngIf="itemForm.get('location')?.invalid && itemForm.get('location')?.touched" class="error">
-    <small *ngIf="itemForm.get('location')?.hasError('required')">Location is required.</small>
-    <small *ngIf="itemForm.get('location')?.hasError('minlength')">Minimum 6 characters required.</small>
+  <!-- Hospital List Card -->
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-secondary text-white">
+      <h4 class="mb-0">Hospital List</h4>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Sno</th>
+            <th >Hospital Name</th>
+            <th >Location</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let hospital of hospitalList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="fw-bold">{{ hospital.name }}</td>
+            <td>{{ hospital.location }}</td>
+            <td class="text-center">
+              <button class="btn btn-outline-primary btn-sm" (click)="addEquipment(hospital)">
+                <i class="bi bi-tools"></i> Assign Equipment
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <button type="submit" [disabled]="itemForm.invalid">Create Hospital</button>
-</form>
-
-<div *ngIf="showError" class="error">{{ errorMessage }}</div>
-<div *ngIf="responseMessage" class="success">{{ responseMessage }}</div>
-
-<hr />
-
-<h2>Hospital List</h2>
-<ul>
-  <li *ngFor="let hospital of hospitalList">
-    {{ hospital.name }} - {{ hospital.location }}
-    <button (click)="Addequipment(hospital)">Assign Equipment</button>
-  </li>
-</ul>
-
-<div *ngIf="showEquipmentForm">
-  <h3>Assign Equipment to {{ assignModel?.name }}</h3>
-  <form [formGroup]="equipmentForm" (ngSubmit)="submitEquipment()">
-    <label for="name">Equipment Name</label>
-    <input id="name" formControlName="name" type="text" />
-    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched" class="error">
-      <small *ngIf="equipmentForm.get('name')?.hasError('required')">Equipment name is required.</small>
-      <small *ngIf="equipmentForm.get('name')?.hasError('minlength')">Minimum 2 characters required.</small>
-    </div>
-
-    <label for="description">Description</label>
-    <input id="description" formControlName="description" type="text" />
-    <div *ngIf="equipmentForm.get('description')?.invalid && equipmentForm.get('description')?.touched" class="error">
-      <small *ngIf="equipmentForm.get('description')?.hasError('required')">Description is required.</small>
-      <small *ngIf="equipmentForm.get('description')?.hasError('minlength')">Minimum 2 characters required.</small>
-    </div>
-
-    <label for="hospitalId">Hospital ID</label>
-    <input id="hospitalId" formControlName="hospitalId" type="text" readonly />
-    <div *ngIf="equipmentForm.get('hospitalId')?.invalid && equipmentForm.get('hospitalId')?.touched" class="error">
-      <small>Hospital ID is required.</small>
-    </div>
-
-    <button type="submit" [disabled]="equipmentForm.invalid">Assign</button>
-    <button type="button" (click)="showEquipmentForm = false">Cancel</button>
-  </form>
-
-  <div *ngIf="showMessage" class="success">{{ showMessage }}</div>
 </div>
+
+<!-- Modal for Equipment Assignment -->
+<div class="modal fade show" tabindex="-1" role="dialog" [ngClass]="{'d-block': showEquipmentForm}" *ngIf="showEquipmentForm">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content shadow-lg">
+      <form [formGroup]="equipmentForm" (ngSubmit)="submitEquipment()">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Assign Equipment to {{ assignModel?.name }}</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Equipment Name -->
+          <div class="mb-3">
+            <label for="name" class="form-label fw-bold">Equipment Name</label>
+            <input id="name" formControlName="name" type="text" class="form-control" placeholder="Enter equipment name" />
+            <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched" class="text-danger">
+              <small *ngIf="equipmentForm.get('name')?.hasError('required')">Equipment name is required.</small>
+              <small *ngIf="equipmentForm.get('name')?.hasError('minlength')">Minimum 2 characters required.</small>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Description</label>
+            <input id="description" formControlName="description" type="text" class="form-control" placeholder="Enter description" />
+            <div *ngIf="equipmentForm.get('description')?.invalid && equipmentForm.get('description')?.touched" class="text-danger">
+              <small *ngIf="equipmentForm.get('description')?.hasError('required')">Description is required.</small>
+              <small *ngIf="equipmentForm.get('description')?.hasError('minlength')">Minimum 2 characters required.</small>
+            </div>
+          </div>
+
+          <!-- Hospital ID -->
+          <div class="mb-3">
+            <label for="hospitalId" class="form-label fw-bold">Hospital ID</label>
+            <input id="hospitalId" formControlName="hospitalId" type="text" class="form-control" readonly />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success px-4" [disabled]="equipmentForm.invalid">
+            <i class="bi bi-check-circle"></i> Assign
+          </button>
+          <button type="button" class="btn btn-secondary px-4" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+      <div *ngIf="showMessage" class="alert alert-success m-3">{{ showMessage }}</div>
+    </div>
+  </div>
+</div>
+``
