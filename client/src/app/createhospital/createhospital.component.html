@@ -6,54 +6,51 @@
 
     <!-- Create Hospital Form -->
     <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-  <div class="d-flex gap-3 align-items-center flex-wrap">
-    <!-- Hospital Name -->
-    <div class="flex-fill">
-      <label for="name" class="form-label fw-semibold small">Hospital Name</label>
-      <input id="name" formControlName="name" type="text" class="form-control form-control-sm rounded-3"
-        placeholder="Enter hospital name" />
-	<div *ngIf="itemForm.get('name')?.touched && itemForm.get('name')?.invalid" class="text-danger mt-1 small">
+      <div class="d-flex gap-3 align-items-center flex-wrap">
+        <!-- Hospital Name -->
+        <div class="flex-fill">
+          <label for="name" class="form-label fw-semibold small">Hospital Name</label>
+          <input id="name" formControlName="name" type="text" class="form-control form-control-sm rounded-3"
+            placeholder="Enter hospital name" />
+          <div *ngIf="itemForm.get('name')?.touched && itemForm.get('name')?.invalid" class="text-danger mt-1 small">
             <div *ngIf="itemForm.get('name')?.errors?.['required']">Hospital name is required.</div>
             <div *ngIf="itemForm.get('name')?.errors?.['pattern']">Only letters and spaces are allowed.</div>
             <div *ngIf="itemForm.get('name')?.errors?.['minlength']">Minimum 3 characters required.</div>
           </div>
-    </div>
+        </div>
 
-    <!-- Location -->
-    <div class="flex-fill">
-      <label for="location" class="form-label fw-semibold small">Location</label>
-      <input id="location" formControlName="location" type="text" class="form-control form-control-sm rounded-3"
-        placeholder="Enter location" />
-	<div *ngIf="itemForm.get('location')?.touched && itemForm.get('location')?.invalid" class="text-danger mt-1 small">
+        <!-- Location -->
+        <div class="flex-fill">
+          <label for="location" class="form-label fw-semibold small">Location</label>
+          <input id="location" formControlName="location" type="text" class="form-control form-control-sm rounded-3"
+            placeholder="Enter location" />
+          <div *ngIf="itemForm.get('location')?.touched && itemForm.get('location')?.invalid" class="text-danger mt-1 small">
             <div *ngIf="itemForm.get('location')?.errors?.['required']">Location is required.</div>
             <div *ngIf="itemForm.get('location')?.errors?.['minlength']">Minimum 3 characters required.</div>
           </div>
-    </div>
+        </div>
 
-    <!-- Add Button -->
-    <div style="width: 120px;">
-      <label class="form-label invisible">Add</label>
-      <button type="submit" class="btn btn-info text-white fw-semibold btn-sm rounded-3 w-100"
-        [disabled]="itemForm.invalid">
-        Add
-      </button>
-    </div>
-  </div>
-</form>
+        <!-- Add Button -->
+        <div style="width: 120px;">
+          <label class="form-label invisible">Add</label>
+          <button type="submit" class="btn btn-info text-white fw-semibold btn-sm rounded-3 w-100"
+            [disabled]="itemForm.invalid">
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
 
     <!-- Alerts -->
     <div *ngIf="showError" class="alert alert-danger mt-3 small">{{ errorMessage }}</div>
     <div *ngIf="responseMessage" class="alert alert-success mt-3 small">{{ responseMessage }}</div>
 
-    <!-- Search Section -->
+    <!-- Single Search Box -->
     <div class="row mt-4 mb-3 g-2">
-      <div class="col-md-6">
+      <div class="col-12">
         <input type="text" class="form-control form-control-sm rounded-3"
-          placeholder="Search by Hospital Name" [(ngModel)]="searchName" (ngModelChange)="currentPage=1">
-      </div>
-      <div class="col-md-6">
-        <input type="text" class="form-control form-control-sm rounded-3"
-          placeholder="Search by Location" [(ngModel)]="searchLocation" (ngModelChange)="currentPage=1">
+          placeholder="Search by Hospital Name or Location"
+          [(ngModel)]="searchQuery" (ngModelChange)="currentPage=1">
       </div>
     </div>
 
@@ -62,7 +59,7 @@
       <table class="table table-hover align-middle mb-0 glass-table">
         <thead class="table-light text-center small text-secondary">
           <tr>
-            <th>#</th>
+            <th>S.No</th>
             <th (click)="sortBy('name')" style="cursor: pointer;">Hospital Name
               <span *ngIf="sortField === 'name'">{{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
             </th>

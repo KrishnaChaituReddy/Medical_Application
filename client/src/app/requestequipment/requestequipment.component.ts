@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { Router } from '@angular/router';
-
+ 
 @Component({
   selector: 'app-requestequipment',
   templateUrl: './requestequipment.component.html',
@@ -18,67 +18,66 @@ export class RequestequipmentComponent implements OnInit {
   showMessage: any;
   responseMessage: any;
   equipmentList: any[] = [];
-  today = new Date().toISOString().split('T')[0];
-
+ 
   constructor(private fb: FormBuilder, private httpService: HttpService, private router:Router) {}
-
+ 
   ngOnInit(): void {
     this.itemForm = this.fb.group({
-      hospital: ['', Validators.required],
+      hospitalId: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
       equipment: ['', Validators.required],
       status: ['', Validators.required],
       orderDate: ['', [Validators.required, this.dateValidator]]
     });
-
+ 
     this.getHospital();
   }
-
+ 
   getHospital(): void {
     this.httpService.getAllHospitals().subscribe({
       next: (response) => {
         this.hospitalList = response;
       },
       error: (err) => {
-        this.showError = true;
-        this.errorMessage = 'Error loading hospital details';
         console.error(err);
+        setTimeout(() => {
+          this.showError = true;
+          this.errorMessage = 'Error loading hospital details';
+        }, 1500); // Delay of 2 seconds
       }
     });
   }
-
+ 
   dateValidator(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
     const today = new Date();
-
+ 
     selectedDate.setHours(0, 0, 0, 0);
     today.setHours(0, 0, 0, 0)
-
+ 
     if (selectedDate < today) {
       return { invalidDate: true };
     }
     return null;
   }
-
-  onHospitalSelect(hospital: string): void {
-    // Example logic: Load equipment based on hospital
-    console.log('Selected Hospital:', hospital);
-    this.httpService.getEquipmentsByHospitalName(hospital).subscribe({
-      next: (response: any[]) => {
-        this.equipmentList = response;
-      },
-      error: (err: any) => {
-        this.showError = true;
-        this.errorMessage = 'Error loading in equipment list';
-        console.error(err);
-      }
-    });
+ 
+  onHospitalSelect(): void {
+    const hospitalId = this.itemForm.get('hospitalId')?.value;
+    if (hospitalId) {
+      this.httpService.getEquipmentByHospital(hospitalId).subscribe({
+        next: (data) => this.equipmentList = data,
+        error: () => {
+          this.showError = true;
+          this.errorMessage = 'Failed to load equipment';
+        }
+      });
+    }
   }
-
+ 
   // onHospitalSelect(event: Event): void {
   //   const selectedHospital = (event.target as HTMLSelectElement).value;
   //   console.log('Selected Hospital:', selectedHospital);
-  
+ 
   //   // Call your logic here
   //   this.httpService.getEquipmentsByHospitalName(selectedHospital).subscribe({
   //     next: (response: any[]) => {
@@ -91,8 +90,8 @@ export class RequestequipmentComponent implements OnInit {
   //     }
   //   });
   // }
-
-
+ 
+ 
   onSubmit(): void {
     if (this.itemForm.valid) {
       const formData = {
@@ -103,27 +102,32 @@ export class RequestequipmentComponent implements OnInit {
         orderDate:this.itemForm.get('orderDate')?.value
         //orderDate: this.formatDate(this.itemForm.get('orderDate')?.value) // optional formatting
       };
-  
+ 
       console.log('Submitting:', formData);
-  
+ 
       //this.httpService.requestEquipment(formData.equipmentId, formData).subscribe({
         this.httpService.requestEquipment(this.itemForm.get('equipment')?.value, formData).subscribe({
         next: () => {
           this.showMessage = true;
           this.responseMessage = 'Equipment request submitted successfully!';          
-         this.itemForm.reset();
-         setTimeout(() => {
-          this.showMessage = false;
-         }, 2000);
-          // this.router.navigate(['/requestequipment']);
+          this.itemForm.reset({
+            hospitalId: '',
+            equipment: '',
+            quantity: '',
+            status: '',
+            orderDate: ''
+          });
+          setTimeout(() => {
+            this.showMessage = false;
+            this.responseMessage = '';
+            this.router.navigate(['/requestequipment']);
+          }, 1500);
+ 
         },
         error: (err) => {
           console.error('Error details:', err);
           this.showError = true;
           this.errorMessage = 'Failed to request equipment';
-          setTimeout(() => {
-            this.errorMessage = false;
-           }, 2000);
         }
       });
     } else {
@@ -131,10 +135,10 @@ export class RequestequipmentComponent implements OnInit {
       this.errorMessage = 'Please fill all required fields correctly.';
     }
   }
-  
-
-  
-
+ 
+ 
+ 
+ 
   // onSubmit(): void {
   //   if (this.itemForm.valid) {
   //     // this.assignModel = this.itemForm.value;
@@ -150,14 +154,14 @@ export class RequestequipmentComponent implements OnInit {
   //         this.errorMessage = 'Failed to request equipment';
   //       }
   //     })
-      
+     
   //   } else {
   //     this.showError = true;
   //     this.errorMessage = 'Please fill all required fields correctly.';
   //   }
   // }
-
-
+ 
+ 
   // onSubmit() {
   //   if (this.itemForm.valid) {
   //     this.httpService.createHospital(this.itemForm.value).subscribe({
@@ -184,6 +188,7 @@ export class RequestequipmentComponent implements OnInit {
   //     });
   //   }
   // }
-
+ 
  
 }
+ 

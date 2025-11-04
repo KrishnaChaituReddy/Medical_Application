@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   IsLoggin = false;
   roleName: string | null = null;
- 
   constructor(private authService: AuthService, private router: Router) {}
  
   ngOnInit(): void {

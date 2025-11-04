@@ -1,28 +1,353 @@
-<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; background-color: #e9f7ef;"
-  style="min-height: 120vh; background: linear-gradient(135deg, #e9f7ef, #f7f9fb); padding-top: 0 !important; margin-top: 0 !important;">
-  <div class="card shadow-lg border-0 rounded-4 p-3 align-self-start"
-    style="max-width: 460px; width: 100%; background-color: #ffffffee; margin-top: 8px !important;">
-    <h4 class="text-center mb-2 text-success fw-bold" style="font-size: 1.5rem;">
-      Medical Equipment & Tracking System
-    </h4>
-    <p class="text-center text-muted mb-3" style="font-size: 0.9rem;">
-      Please enter your details below to register
-    </p>
-    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-      <div class="mb-2">
-        <label class="form-label fw-semibold">Username <span class="text-danger">*</span></label>
-        <input type="text" class="form-control form-control-sm" formControlName="username" placeholder="Enter username">
-        <div *ngIf="f['username'].touched && f['username']?.errors?.['required']" class="text-danger small mt-1">
-          Username is required
+<div class="vh-100" style="position: relative; overflow: hidden;">
+  <!-- Background Image -->
+  <div style="
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url('assets/images/equipment2.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: 0;
+  "></div>
+
+  <!-- Foreground Content -->
+  <div class="container h-100 position-relative" style="z-index: 1;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <!-- Single Card -->
+        <div class="card shadow-lg border-0 rounded-4 p-4" style="background: rgba(255, 255, 255, 0.85);">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center align-items-center">
+              
+              <!-- Form Section -->
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <h4 class="text-center mb-2 text-success fw-bold" style="font-size: 1.5rem;">
+                  MediLink
+                </h4>
+                <p class="text-center text-muted mb-3" style="font-size: 0.9rem;">
+                  Please enter your details below to register
+                </p>
+
+                <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="mx-1 mx-md-4">
+                  <!-- Username -->
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Username <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-sm" formControlName="username" placeholder="Enter username">
+                    <div *ngIf="f['username'].touched && f['username']?.errors?.['required']" class="text-danger small mt-1">
+                      Username is required
+                    </div>
+                    <div *ngIf="f['username'].touched && f['username']?.errors?.['pattern']" class="text-danger small mt-1">
+                      Username should not contain special characters
+                    </div>
+                    <div *ngIf="errorMessage?.username" class="text-danger small mt-1">{{errorMessage.username}}</div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Email address <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="name@example.com">
+                    <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
+                      <div *ngIf="f['email'].errors?.['required']">Please enter an email.</div>
+                      <div *ngIf="f['email'].errors?.['email']">Please enter a valid email.</div>
+                    </div>
+                    <div *ngIf="errorMessage?.email" class="text-danger small mt-1">{{errorMessage.email}}</div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control form-control-sm" formControlName="password" placeholder="Enter password">
+                    <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">
+                      <div *ngIf="f['password'].errors?.['required']">Please enter password.</div>
+                      <div *ngIf="f['password'].errors?.['pattern']">
+                        Password must include an uppercase, lowercase, digit, and special character.
+                      </div>
+                    </div>
+                    <div *ngIf="errorMessage?.password" class="text-danger small mt-1">{{errorMessage.password}}</div>
+                  </div>
+
+                  <!-- Role -->
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
+                    <select class="form-select form-select-sm" formControlName="role">
+                      <option value="">Choose Role</option>
+                      <option value="HOSPITAL">Hospital</option>
+                      <option value="TECHNICIAN">Technician</option>
+                      <option value="SUPPLIER">Supplier</option>
+                    </select>
+                    <div *ngIf="f['role'].touched && f['role'].invalid" class="text-danger small mt-1">
+                      Please choose a role
+                    </div>
+                    <div *ngIf="errorMessage?.role" class="text-danger small mt-1">{{errorMessage.role}}</div>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm mt-2">
+                    Register
+                  </button>
+
+                  <!-- Success/Error Messages -->
+                  <div *ngIf="showMessage && responseMessage" class="alert alert-success text-center mt-2 rounded-3 shadow-sm" role="alert">
+                    {{ responseMessage }}
+                  </div>
+                  <div *ngIf="showMessage && errorMessage && !responseMessage" class="alert alert-danger text-center mt-2 rounded-3 shadow-sm" role="alert">
+                    ❌ Registration failed. {{ errorMessage?.message || 'Please try again.' }}
+                  </div>
+
+                  <!-- Footer -->
+                  <p class="mt-2 text-center small mb-0">
+                    Already have an account?
+                    <a routerLink="/login" class="text-decoration-none fw-semibold text-success">Login here</a>
+                  </p>
+                </form>
+              </div>
+
+              <!-- Image Section -->
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                     class="img-fluid" alt="">
+          </div> <!-- End card-body -->
+        </div> <!-- End card -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="vh-100 d-flex justify-content-center align-items-center position-relative overflow-hidden">
+
+  <!-- Background -->
+
+  <div style="
+
+    position: absolute;
+
+    top: 0; left: 0;
+
+    width: 100%; height: 100%;
+
+    background-image: url('assets/equipment2.jpg');
+
+    background-size: cover;
+
+    background-position: center;
+
+    filter: blur(8px);
+
+    z-index: 0;
+
+  "></div>
+
+  <!-- Foreground -->
+
+  <div class="container position-relative" style="z-index: 1;">
+
+    <div class="row justify-content-center align-items-center">
+
+      <div class="col-lg-10 col-xl-9">
+
+        <div class="card shadow-lg border-0 rounded-4 p-3" style="background: rgba(255,255,255,0.88);">
+
+          <div class="card-body py-3 px-4">
+
+            <div class="row align-items-center">
+
+              <!-- Form Section -->
+
+              <div class="col-md-6 order-2 order-lg-1 d-flex flex-column justify-content-between" style="height: 100%;">
+
+                <div>
+
+                  <!-- Logo -->
+
+                  <!-- <div class="text-center mb-2">
+
+                    <img src="assets/image.png" alt="MediLink Logo" style="width: 55px; height: 55px;">
+
+                  </div> -->
+
+                  <!-- Title + Tagline -->
+
+                  <h4 class="text-center mb-1 text-success fw-bold" style="font-size: 1.5rem;">MediLink</h4>
+
+                  <p class="text-center text-muted mb-2" style="font-size: 0.85rem;">
+
+                    Connecting Healthcare with Smart Technology
+
+                  </p>
+
+                  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="mx-1 mx-md-3">
+
+                    <!-- Username -->
+
+                    <div class="mb-2">
+
+                      <label class="form-label fw-semibold">Username <span class="text-danger">*</span></label>
+
+                      <input type="text" class="form-control form-control-sm" formControlName="username" placeholder="Enter username">
+
+                      <div *ngIf="f['username'].touched && f['username']?.errors?.['required']" class="text-danger small mt-1">
+
+                        Username is required
+
+                      </div>
+
+                      <div *ngIf="f['username'].touched && f['username']?.errors?.['pattern']" class="text-danger small mt-1">
+
+                        Username should not contain special characters
+
+                      </div>
+
+                      <div *ngIf="errorMessage?.username" class="text-danger small mt-1">{{errorMessage.username}}</div>
+
+                    </div>
+
+                    <!-- Email -->
+
+                    <div class="mb-2">
+
+                      <label class="form-label fw-semibold">Email address <span class="text-danger">*</span></label>
+
+                      <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="name@example.com">
+
+                      <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
+
+                        <div *ngIf="f['email'].errors?.['required']">Please enter an email.</div>
+
+                        <div *ngIf="f['email'].errors?.['email']">Please enter a valid email.</div>
+
+                      </div>
+
+                      <div *ngIf="errorMessage?.email" class="text-danger small mt-1">{{errorMessage.email}}</div>
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="mb-2">
+
+                      <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+
+                      <input type="password" class="form-control form-control-sm" formControlName="password" placeholder="Enter password">
+
+                      <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">
+
+                        <div *ngIf="f['password'].errors?.['required']">Please enter password.</div>
+
+                        <div *ngIf="f['password'].errors?.['pattern']">
+
+                          Must include uppercase, lowercase, digit & special character.
+
+                        </div>
+
+                      </div>
+
+                      <div *ngIf="errorMessage?.password" class="text-danger small mt-1">{{errorMessage.password}}</div>
+
+                    </div>
+
+                    <!-- Role -->
+
+                    <div class="mb-2">
+
+                      <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
+
+                      <select class="form-select form-select-sm" formControlName="role">
+
+                        <option value="">Choose Role</option>
+
+                        <option value="HOSPITAL">Hospital</option>
+
+                        <option value="TECHNICIAN">Technician</option>
+
+                        <option value="SUPPLIER">Supplier</option>
+
+                      </select>
+
+                      <div *ngIf="f['role'].touched && f['role'].invalid" class="text-danger small mt-1">
+
+                        Please choose a role
+
+                      </div>
+
+                      <div *ngIf="errorMessage?.role" class="text-danger small mt-1">{{errorMessage.role}}</div>
+
+                    </div>
+
+                    <!-- Submit -->
+
+                    <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm mt-2">
+
+                      Register
+
+                    </button>
+
+                    <!-- Alerts -->
+
+                    <div *ngIf="showMessage && responseMessage" class="alert alert-success text-center mt-2 rounded-3 shadow-sm" role="alert">
+
+                      {{ responseMessage }}
+
+                    </div>
+
+                    <div *ngIf="showMessage && errorMessage && !responseMessage" class="alert alert-danger text-center mt-2 rounded-3 shadow-sm" role="alert">
+
+                      Registration failed. {{ errorMessage?.message || 'Please try again.' }}
+
+                    </div>
+
+                  </form>
+
+                </div>
+
+                <!-- Footer Always Visible -->
+
+                <p class="mt-2 text-center small mb-4">
+
+                  Already have an account?
+
+                  <a routerLink="/login" class="text-decoration-none fw-semibold text-success">Login here</a>
+
+                </p>
+
+              </div>
+
+              <!-- Image Section -->
+
+              <div class="col-md-6 d-flex justify-content-center align-items-center order-1 order-lg-2">
+          
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+
+                     class="img-fluid" alt="Illustration" style="max-height: 350px;">
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-        <div *ngIf="f['username'].touched && f['username']?.errors?.['pattern']" class="text-danger small mt-1">
-          Username should not contain special characters
+
+      </div>
+
+    </div>
+
+
+<!-- <div class="container d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 480px; width: 100%; ">
+    <h3 class="text-center mb-2 text-success fw-bold">Medical Equipment & Tracking System</h3>
+    <p class="text-center text-muted mb-4">Please enter your details below to register</p>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="mb-1">
+        <label class="form-label fw-semibold">Username <span class="text-danger">*</span></label>
+        <input type="text" class="form-control form-control" formControlName="username" placeholder="Enter username">
+        <div *ngIf="f['username'].touched && f['username'].invalid" class="text-danger small mt-1">
+          Please enter username
         </div>
         <div *ngIf="errorMessage?.username" class="text-danger small mt-1">{{errorMessage.username}}</div>
       </div>
-      <div class="mb-2">
+      <div class="mb-1">
         <label class="form-label fw-semibold">Email address <span class="text-danger">*</span></label>
-        <input type="email" class="form-control form-control-sm" formControlName="email" placeholder="name@example.com">
+        <input type="email" class="form-control form-control" formControlName="email" placeholder="name@example.com">
         <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
           <div *ngIf="f['email'].errors?.['required']">Please enter an email.</div>
           <div *ngIf="f['email'].errors?.['email']">Please enter a valid email.</div>
@@ -30,21 +355,20 @@
         </div>
         <div *ngIf="errorMessage?.email" class="text-danger small mt-1">{{errorMessage.email}}</div>
       </div>
-      <div class="mb-2">
+      <div class="mb-1">
         <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
-        <input type="password" class="form-control form-control-sm" formControlName="password"
+        <input type="password" class="form-control form-control" formControlName="password"
           placeholder="Enter password">
         <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">
           <div *ngIf="f['password'].errors?.['required']">Please enter password.</div>
-          <div *ngIf="f['password'].errors?.['pattern']">
-            Password must include an uppercase, lowercase, digit, and special character.
-          </div>
+          <div *ngIf="f['password'].errors?.['pattern']">Password must include an uppercase letter, a lowercase letter, a digit, and a special character.</div>
+          <div *ngIf="errorMessage?.password" class="text-danger small mt-1">{{errorMessage.password}}</div>
         </div>
         <div *ngIf="errorMessage?.password" class="text-danger small mt-1">{{errorMessage.password}}</div>
       </div>
-      <div class="mb-2">
+      <div class="mb-1">
         <label class="form-label fw-semibold">Role <span class="text-danger">*</span></label>
-        <select class="form-select form-select-sm" formControlName="role">
+        <select class="form-select form-select" formControlName="role">
           <option value="">Choose Role</option>
           <option value="HOSPITAL">Hospital</option>
           <option value="TECHNICIAN">Technician</option>
@@ -55,16 +379,18 @@
         </div>
         <div *ngIf="errorMessage?.role" class="text-danger small mt-1">{{errorMessage.role}}</div>
       </div>
-      <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 shadow-sm mt-2">
+      <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm">
         Register
       </button>
-      <div *ngIf="showMessage" class="alert alert-success text-center mt-2 rounded-3 shadow-sm" role="alert">
+      <div *ngIf="showMessage" class="alert alert-success text-center mt-3 rounded-3 shadow-sm" role="alert">
         ✅ You have successfully registered!
       </div>
-      <p class="mt-2 text-center small mb-0">
+      <p class="mt-3 text-center">
         Already have an account?
         <a routerLink="/login" class="text-decoration-none fw-semibold text-success">Login here</a>
       </p>
     </form>
   </div>
-</div>
+
+</div> -->
+

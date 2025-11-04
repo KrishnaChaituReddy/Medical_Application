@@ -51,8 +51,10 @@ export class ForgotpasswordComponent implements OnInit {
           this.MailError=err.MailError||'Email not registered';
           
   setTimeout(() => {
-    this.errorMessage = null;
-  }, 2000);
+    // this.errorMessage = null;
+    this.MailError=null;
+    this.forgotForm.reset();
+  }, 1500);
 
         }
       });
@@ -73,7 +75,7 @@ export class ForgotpasswordComponent implements OnInit {
         error: (err) => {
           this.otpValidated = false;
           this.errorMessage = err.error.message || 'Invalid OTP';
-          setTimeout(() => this.errorMessage = null, 2000);
+          setTimeout(() => this.errorMessage = null, 1500);
         }
       });
     }

@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
           setTimeout(() => {
             this.errorMessage = '';
             this.itemForm.reset();
-          }, 2000);
+          }, 1500);
   
           return of(null);
         })
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
     
       setTimeout(() => {
         this.errorMessage = '';
-      }, 2000);
+      }, 1500);
     }
   }
 }

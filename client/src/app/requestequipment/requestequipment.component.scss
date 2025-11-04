@@ -1,57 +1,160 @@
-$request-error-color: #dc3545; // Bootstrap danger color
-$request-card-radius: 8px;
-
-.request-equipment {
-  .card {
-    border-radius: $request-card-radius;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-
-    .card-header {
-      font-weight: 600;
-      font-size: 1.1rem;
-      background-color: #f8f9fa;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .card-body {
-      padding: 1.5rem;
-
-      form {
-        .row {
-          margin-bottom: 1rem;
-
-          .form-label {
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-          }
-
-          .form-control {
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-
-            &:focus {
-              border-color: #0d6efd;
-              box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-            }
-          }
-
-          .text-danger,
-          .error-text {
-            color: $request-error-color;
-            font-size: 0.85rem;
-            margin-top: 0.25rem;
-            display: block;
-          }
-        }
-
-        button {
-          margin-top: 10px;
-          padding: 0.5rem 1.5rem;
-          font-weight: 500;
-        }
-      }
-    }
+/* ================================
+   Request Equipment Page Styling
+================================ */
+ 
+/* Full-page wrapper with background image */
+.request-equipment-wrapper {
+  background: url('/assets/request_equipment/photo-1579165466991-467135ad3110.png') center/cover no-repeat;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top but allow margin */
+  padding: 80px 20px; /* Adds gap at top and bottom */
+}
+ 
+/* Dark overlay for better contrast */
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+ 
+/* Glass card styling */
+.glass-card {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  margin-bottom: 40px; /* Adds bottom gap */
+}
+ 
+/* Title and header */
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+  text-align: center;
+  margin-bottom: 8px;
+}
+ 
+.card-header {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #495057;
+  text-align: center;
+  margin-bottom: 20px;
+}
+ 
+/* Form layout */
+.row {
+  margin-bottom: 15px;
+}
+ 
+.form-label {
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 6px;
+}
+ 
+/* Inputs and selects */
+.form-control {
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  font-size: 1rem;
+}
+ 
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+ 
+/* Gradient Submit Button */
+.btn-primary {
+  background: linear-gradient(90deg, #0d6efd, #6ea8fe);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+ 
+.btn-primary:hover {
+  background: linear-gradient(90deg, #0b5ed7, #5a9bfc);
+}
+ 
+/* Alerts */
+.alert {
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+ 
+/* Success Alert Styling */
+.alert-success {
+  background: linear-gradient(90deg, #d4edda, #c3e6cb); /* Soft green gradient */
+  color: #155724; /* Dark green text for readability */
+  border: none;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+ 
+/* Optional: Add subtle icon */
+.alert-success::before {
+  content: "✔ ";
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: #28a745;
+}
+ 
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-
+ 
+ 
+.alert-danger {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+ 
+/* ================================
+   Responsive Tweaks
+================================ */
+@media (min-height: 900px) {
+  .request-equipment-wrapper {
+    align-items: center; /* Center vertically on large screens */
+    padding: 40px 20px;
+  }
+}
+ 

@@ -1,3 +1,15 @@
+
+
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+  "username": "Hospital",
+  "password": "Hospital123",
+  "email": "hospital@example.com",
+  "role": "HOSPITAL"
+}
+
 # POST http://localhost:5000/api/user/register
 # Content-Type: application/json
 

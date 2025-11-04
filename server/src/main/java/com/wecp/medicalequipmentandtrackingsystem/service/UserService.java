@@ -40,11 +40,11 @@ public class UserService implements UserDetailsService {
       
          if(userRepository.findByUsername(username)!=null)
          {
-          throw new UserAlreadyExists(username+"Already exists");
+          throw new UserAlreadyExists("Username already exists");
          }
          if(userRepository.findByEmail(email)!=null)
          {
-          throw new UserAlreadyExists(email+"Already exists");
+          throw new UserAlreadyExists("Email already exists");
          }
             User u=new User();
             u.setUsername(username);

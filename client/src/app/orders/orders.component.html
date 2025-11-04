@@ -1,89 +1,105 @@
-<div class="container mt-4">
-  <h4 class="mb-3 text-center text-secondary">Manage Orders</h4>
+<div class="manage-orders-container d-flex justify-content-center align-items-center vh-100"
+     style="background: url('assets/order1.jpg') center/cover no-repeat; position: relative;">
 
-  <!-- Search Bar -->
-  <div class="mb-4">
-    <input type="text" class="form-control border rounded-pill shadow-sm"
-       placeholder="🔍 Search by Equipment Name or Hospital Name"
-       [(ngModel)]="searchText"
-       (ngModelChange)="page = 1">
-  </div>
+  <div class="bg-overlay"></div>
 
-  <!-- Orders Table -->
-  <div class="card border-0 shadow-sm">
-    <div class="card-header bg-light text-dark fw-bold">
-      Orders Information
+  <div class="glass-card p-4 p-md-5 rounded-4 shadow-lg"
+  style="width: 90%; max-width: 1100px; position: relative; z-index: 2;">
+  <h3 class="mb-4 text-center fw-bold text-dark">Manage Orders</h3>
+
+    <div class="input-group mb-4">
+      <span class="input-group-text bg-light border-0 text-secondary">🔍</span>
+      <input type="text"
+             class="form-control bg-light border-0 shadow-none text-dark"
+             placeholder="Search by Equipment or Hospital name"
+             [(ngModel)]="searchText" (ngModelChange)="page = 1">
     </div>
-    <div class="card-body p-0">
-      <table class="table table-hover align-middle mb-0">
-        <thead class="table-dark">
-          <tr>
-            <th>Sr#</th>
 
-            <th>
-              Order Date
-              <span class="text-white ms-3" style="cursor:pointer;" (click)="sortOrderDate()">
-                {{ sortAscending ? '↑' : '↓' }}
+    <div class="table-responsive rounded-3 shadow-sm">
+      <table class="table table-hover align-middle mb-0" style="table-layout: fixed; width: 100%;">
+        <thead>
+          <tr>
+            <th style="width: 8%;">SR#</th>
+            <th style="width: 17%; cursor:pointer;" (click)="sortOrderDate()">
+              <span class="d-inline-flex align-items-center gap-1" style="white-space: nowrap;">
+                ORDER DATE
+                <span>{{ sortAscending ? '▲' : '▼' }}</span>
               </span>
             </th>
-
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Equipment</th>
-            <th>Hospital</th>
-            <th>Action</th>
+            <th style="width: 10%;">QUANTITY</th>
+            <th style="width: 12%;">STATUS</th>
+            <th style="width: 22%;">EQUIPMENT</th>
+            <th style="width: 22%;">HOSPITAL</th>
+            <th style="width: 11%;">ACTION</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of filteredOrders | paginate: { itemsPerPage: 3, currentPage: page }; let i = index">
+          <tr *ngFor="let order of filteredOrders | paginate: { itemsPerPage: 4, currentPage: page }; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ order.orderDate | date: 'dd-MMM-yyyy' }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>
-              <span class="badge bg-secondary">{{ order.status }}</span>
+            <td style="text-align: 6px;">{{ order.orderDate | date: 'dd-MMM-yyyy' }}</td>
+            <td class="text-center">{{ order.quantity }}</td>
+            <td class="text-center">
+              <span class="badge px-3 py-2"
+                    [ngClass]="{
+                      'bg-warning text-dark': order.status === 'Pending',
+                      'bg-primary': order.status === 'Shipped',
+                      'bg-success': order.status === 'Delivered',
+                      'bg-secondary': order.status !== 'Pending' && order.status !== 'Shipped' && order.status !== 'Delivered'
+                    }">
+                {{ order.status }}
+              </span>
             </td>
             <td>
-              <div><strong>Name: </strong> {{ order.equipmentName }}</div>
-              <div><strong>Description: </strong>{{ order.equipmentDescription }}</div>
+              <div><strong>Name:</strong> {{ order.equipmentName }}</div>
+              <div class="small text-muted"><strong>Description:</strong> {{ order.equipmentDescription }}</div>
             </td>
             <td>
-              <div><strong>Name: </strong> {{ order.hospitalName }}</div>
-              <div><strong>Location: </strong>{{ order.hospitalLocation }}</div>
+              <div><strong>Name:</strong> {{ order.hospitalName }}</div>
+              <div class="small text-muted"><strong>Location:</strong> {{ order.hospitalLocation }}</div>
             </td>
-            <td>
-              <button class="btn btn-outline-primary btn-sm rounded-pill" (click)="edit(order)">
-                Update Status
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1" (click)="edit(order)">
+                Update
               </button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
 
+    <div class="d-flex justify-content-center mt-4">
+      <pagination-controls
+        class="custom-pagination"
+        (pageChange)="page = $event"
+        previousLabel="Prev"
+        nextLabel="Next">
+      </pagination-controls>
     </div>
   </div>
-  <div class="d-flex justify-content-center my-3">
-    <pagination-controls (pageChange)="page = $event"></pagination-controls>
-  </div>
 
-  <!-- Modal -->
-  <div *ngIf="showModal" class="modal fade show d-block" tabindex="-1" style="background: rgba(0,0,0,0.3);">
-    <div class="modal-dialog">
-      <div class="modal-content border-0 shadow">
-        <div class="modal-header bg-light">
-          <h5 class="modal-title">Update Status</h5>
+
+  <div *ngIf="showModal" class="custom-modal d-flex justify-content-center align-items-center">
+    <div class="modal-dialog rounded-4 shadow-lg" style="background:#fff; padding:30px; max-width:450px; width:100%;">
+      <div class="modal-content border-0 bg-white text-dark p-4 rounded-3">
+        <div class="modal-header border-0 mb-3">
+          <h5 class="modal-title fw-bold">Update Order Status</h5>
           <button type="button" class="btn-close" (click)="closeModal()"></button>
         </div>
-        <div class="modal-body">
-          <select class="form-select mb-3" [(ngModel)]="status">
-            <option value="" disabled>Choose Status</option>
+        <div class="modal-body mb-4">
+          <label class="form-label fw-semibold mb-2">Select Status</label>
+          <select class="form-select border rounded-pill py-2"
+                  [(ngModel)]="status">
+            <option value="" disabled selected>Choose Status</option>
             <option value="Pending">Pending</option>
             <option value="Shipped">Shipped</option>
             <option value="Delivered">Delivered</option>
           </select>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-outline-secondary rounded-pill" (click)="closeModal()">Cancel</button>
-          <button class="btn btn-primary rounded-pill" (click)="update(statusModel.orderId,status)">Save</button>
+        <div class="modal-footer border-0 d-flex justify-content-end gap-3">
+          <button class="btn btn-outline-secondary rounded-pill px-4" (click)="closeModal()">Cancel</button>
+          <button class="btn btn-primary rounded-pill px-4" (click)="update(statusModel.orderId,status)">
+            Save Changes
+          </button>
         </div>
       </div>
     </div>

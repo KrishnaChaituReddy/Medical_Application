@@ -1,97 +1,136 @@
-.container {
-  max-width: 95%;
- }
- .table {
-  font-size: 14px;
-  border: 1px solid rgba(25,135,84,0.25);
- }
- .table th {
-  background-color: #198754;
-  color: #fff;
+/* Page background */
+.maintenance-wrapper {
+  background: url('/assets/sched.jpg') center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Glass container */
+.glass-container {
+  background: rgba(255, 255, 255, 0.85); /* White shade */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 1200px;
+  padding: 30px 25px 100px; /* Extra bottom padding for pagination */
+  display: flex;
+  flex-direction: column;
+  color: #212529;
+}
+
+/* Heading */
+h2 {
+  color: #090a0a; /* Original green theme */
+  font-weight: 700;
+  font-size: 24px;
   text-align: center;
- }
- .table td {
-  vertical-align: middle;
- }
- .btn-warning {
-  font-weight: bold;
-  background-color: #157347;
+  margin-bottom: 20px;
+}
+
+/* Search bar */
+.search-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(25, 135, 84, 0.5); /* Original green border */
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  color: #000;
+}
+
+/* Table */
+.table {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  color: #000;
+  font-size: 14px;
+}
+
+.table th {
+  background-color: rgba(25, 135, 84, 0.9); /* Original green header */
+  color: #fff;
+  font-weight: 600;
+}
+
+.table td {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Status badges */
+.status-completed {
+  background-color: #28a745 !important;
+  color: #fff !important;
+}
+
+.status-inprocess {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+.status-initiated {
+  background-color: #6c757d !important;
+  color: #fff !important;
+}
+
+/* Buttons */
+.btn-warning {
+  background: #198754; /* Original green */
+  border: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-warning:hover {
+  background: #157347;
+}
+
+.btn-primary {
+  background: #198754 !important;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-primary:hover {
+  background: #157347 !important;
+}
+
+/* Pagination */
+.page-link {
+  background: #198754;
   color: #fff;
   border: none;
- }
- .btn-warning:hover {
-  background-color: #198754;
-  color: #fff;
- }
- /* Primary button (Submit) */
- .btn-primary {
-  background-color: #198754 !important;
-  border-color: #157347 !important;
- }
- .btn-primary:hover {
-  background-color: #157347 !important;
- }
- /* Info Box */
- .info-box {
-  background-color: rgba(25,135,84,0.25);
-  border: 1px solid #198754;
-  padding: 10px 15px;
-  border-radius: 4px;
-  color: #157347;
- }
- .info-text {
   font-weight: 600;
-  font-size: 16px;
- }
- /* Modal styling */
- .modal-content {
-  border-radius: 8px;
-  border: 2px solid rgba(25,135,84,0.25);
- }
- .modal-header {
-  background-color: #198754;
-  color: white;
-  border-bottom: none;
- }
- .modal-title {
-  font-weight: 600;
- }
- form .form-control {
-  font-size: 14px;
-  border: 1px solid rgba(25,135,84,0.25);
- }
- form .form-control:focus {
-  border-color: #198754;
-  box-shadow: 0 0 5px rgba(25,135,84,0.25);
- }
- form button {
-  margin-top: 10px;
- }
- /* Pagination buttons */
-/* Pagination buttons */
-.page-link {
-  color: #fff; /* White text for visibility */
-  background-color: #198754; /* Primary green background */
-  border: 1px solid #157347;
-  transition: 0.2s ease-in-out;
- }
- .page-item.active .page-link {
-  background-color: #157347; /* Darker active color */
-  border-color: #157347;
-  color: #fff;
- }
- .page-link:hover {
-  background-color: #157347;
-  color: #fff;
-  border-color: #157347;
- }
- .page-item.disabled .page-link {
-  background-color: rgba(25,135,84,0.25);
-  color: #eee;
-  border-color: rgba(25,135,84,0.25);
- }
- /* Headings */
- h2 {
-  color: #157347;
-  font-weight: 600;
- }
+}
+
+.page-item.active .page-link,
+.page-link:hover {
+  background: #157347;
+}
+
+/* Modal */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #000;
+}
+
+/* Inputs inside modal */
+.modal-content input,
+.modal-content select {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(25, 135, 84, 0.4);
+  font-size: 15px;
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}

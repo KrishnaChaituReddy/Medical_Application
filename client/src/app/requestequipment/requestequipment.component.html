@@ -1,70 +1,94 @@
-<div class="container mt-4"></div>
-  <h3 class="mb-3">Request Equipment</h3>
-  <div class="card shadow-sm">
-    <div class="card-header fw-bold">Order Equipment</div>
-    <div class="card-body">
-      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <!-- Hospital and Quantity -->
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="hospital" class="form-label">Hospitals</label>
-            <select id="hospital" class="form-control" formControlName="hospital" (change)="onHospitalSelect(itemForm.get('hospital')?.value)">
-              <option value="">Select Hospital</option>
-              <option *ngFor="let h of hospitalList" [value]="h.name">{{ h.name }}</option>
-            </select>
-            <div *ngIf="itemForm.get('hospital')?.invalid && itemForm.get('hospital')?.touched" class="text-danger">
-              Hospital is required.
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="quantity" class="form-label">Quantity</label>
-            <input type="number" id="quantity" class="form-control" formControlName="quantity" placeholder="Enter quantity" />
-            <div *ngIf="itemForm.get('quantity')?.invalid && itemForm.get('quantity')?.touched" class="text-danger">
-              Quantity must be greater than 0.
-            </div>
-          </div>
-        </div>
-
-        <!-- Equipment and Status -->
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="equipment" class="form-label">Equipment</label>
-            <select id="equipment" class="form-control" formControlName="equipment">
-              <option value="">Select Equipment</option>
-              <option *ngFor="let e of equipmentList" [value]="e.id">{{ e.name }}</option>
-            </select>
-            <div *ngIf="itemForm.get('equipment')?.invalid && itemForm.get('equipment')?.touched" class="text-danger">
-              Equipment is required.
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="status" class="form-label">Status</label>
-            <select id="status" class="form-control" formControlName="status">
-              <option value="">Select Status</option>
-              <option value="Initiated">Initiated</option>
-            </select>
-            <div *ngIf="itemForm.get('status')?.invalid && itemForm.get('status')?.touched" class="text-danger">
-              Status is required.
-            </div>
+<div class="request-equipment-wrapper d-flex justify-content-center align-items-center vh-100"
+     style="background: url('assets/request_equipment/photo-1579165466991-467135ad3110.png') center/cover no-repeat; position: relative;">
+ 
+  <!-- Dark overlay -->
+  <div class="bg-overlay"></div>
+ 
+  <!-- Glass Card -->
+  <div class="glass-card p-4 p-md-5 rounded-4 shadow-lg" style="width: 90%; max-width: 700px; position: relative; z-index: 2;">
+    <h3 class="title mb-2 fw-bold text-dark">Request Equipment</h3>
+    <div class="card-header fw-semibold mb-4 text-secondary">   </div>
+ 
+    <!-- Form -->
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+     
+      <!-- Hospital and Quantity -->
+      <div class="row mb-3">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label class="form-label">Hospitals</label>
+          <select
+            class="form-control form-select"
+            formControlName="hospitalId"
+            (change)="onHospitalSelect()"
+          >
+            <option value="">Please Choose</option>
+            <option
+              *ngFor="let hospital of hospitalList"
+              [value]="hospital.id"
+            >
+              {{ hospital.name }} - {{ hospital.location }}
+            </option>
+          </select>
+          <div
+            *ngIf="
+              itemForm.get('hospitalId')?.touched &&
+              itemForm.get('hospitalId')?.errors?.['required']
+            "
+            class="text-danger"
+          >
+            Hospital is required.
           </div>
         </div>
-
-        <!-- Order Date -->
-        <div class="mb-3">
-          <label for="orderDate" class="form-label">Order Date</label>
-          <input type="date" id="orderDate" class="form-control" formControlName="orderDate" [min]=""/>
-          <div *ngIf="itemForm.get('orderDate')?.invalid && itemForm.get('orderDate')?.touched" class="text-danger">
-            Order Date is required.
+ 
+        <div class="col-md-6">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" id="quantity" class="form-control" formControlName="quantity" placeholder="Enter quantity" />
+          <div *ngIf="itemForm.get('quantity')?.invalid && itemForm.get('quantity')?.touched" class="text-danger small mt-1">
+            Quantity must be greater than 0.
           </div>
         </div>
-
-        <!-- Submit Button and Messages -->
-        <button type="submit" class="btn btn-outline-dark px-4" [disabled]="itemForm.invalid">Submit</button>
-
-        <div *ngIf="showMessage" class="alert alert-success mt-3">{{ responseMessage }}</div>
-        <div *ngIf="showError" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-      </form>
-    </div>
+      </div>
+ 
+      <!-- Equipment and Status -->
+      <div class="row mb-3">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label for="equipment" class="form-label">Equipment</label>
+          <select id="equipment" class="form-control" formControlName="equipment">
+            <option value="">Select Equipment</option>
+            <option *ngFor="let e of equipmentList" [value]="e.id">{{ e.name }}</option>
+          </select>
+          <div *ngIf="itemForm.get('equipment')?.invalid && itemForm.get('equipment')?.touched" class="text-danger small mt-1">
+            Equipment is required.
+          </div>
+        </div>
+ 
+        <div class="col-md-6">
+          <label for="status" class="form-label">Status</label>
+          <select id="status" class="form-control" formControlName="status">
+            <option value="">Select Status</option>
+            <option value="Initiated">Initiated</option>
+          </select>
+          <div *ngIf="itemForm.get('status')?.invalid && itemForm.get('status')?.touched" class="text-danger small mt-1">
+            Status is required.
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Order Date -->
+      <div class="mb-3">
+        <label for="orderDate" class="form-label">Order Date</label>
+        <input type="date" id="orderDate" class="form-control" formControlName="orderDate" placeholder="dd-mm-yyyy" />
+        <div *ngIf="itemForm.get('orderDate')?.invalid && itemForm.get('orderDate')?.touched" class="text-danger small mt-1">
+          Order Date is required and must be today or a future date.
+        </div>
+      </div>
+ 
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary px-4" [disabled]="itemForm.invalid">Submit</button>
+ 
+      <!-- Messages -->
+      <div *ngIf="showMessage" class="alert alert-success mt-3">{{ responseMessage }}</div>
+      <div *ngIf="showError" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    </form>
   </div>
+</div>

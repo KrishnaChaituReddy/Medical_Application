@@ -77,7 +77,7 @@ export class ScheduleMaintenanceComponent implements OnInit {
 
           setTimeout(()=>{
           this.showMessage = false;
-          } , 2000);
+          } , 1500);
         },
         error: () => {
           this.errorMessage = 'Failed to schedule maintenance';
@@ -85,7 +85,7 @@ export class ScheduleMaintenanceComponent implements OnInit {
 
           setTimeout(()=>{
             this.errorMessage = false;
-            } , 2000);
+            } , 1500);
         }
       });
     }

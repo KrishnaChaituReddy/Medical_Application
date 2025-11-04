@@ -1,86 +1,144 @@
-<div class="container mt-4"></div>
-    
-    <!-- Info Box -->
-    <div class="info-box mb-3">
-      <span class="info-text">Schedule Maintenance of Equipment</span>
+<div class="container mt-4">
+  <div class="info-box mb-4">
+    <span class="info-text">Schedule Maintenance of Equipment</span>
+  </div>
+
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Hospitals</label>
+        <select
+          class="form-control form-select"
+          formControlName="hospitalId"
+          (change)="onHospitalSelect()"
+        >
+          <option value="">Please Choose</option>
+          <option
+            *ngFor="let hospital of hospitalList"
+            [value]="hospital.id"
+          >
+            {{ hospital.name }} - {{ hospital.location }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            itemForm.get('hospitalId')?.touched &&
+            itemForm.get('hospitalId')?.errors?.['required']
+          "
+          class="text-danger"
+        >
+          Hospital is required.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Scheduled Date</label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="scheduledDate"
+          [min]="today"
+        />
+        <div
+          *ngIf="
+            itemForm.get('scheduledDate')?.touched &&
+            itemForm.get('scheduledDate')?.errors?.['required']
+          "
+          class="text-danger"
+        >
+          Scheduled date is required.
+        </div>
+      </div>
     </div>
-  
-    <!-- Success Message -->
-    <div *ngIf="showMessage" class="alert alert-success">
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Equipment</label>
+        <select
+          class="form-control form-select"
+          formControlName="equipmentId"
+        >
+          <option value="">Please Choose</option>
+          <option
+            *ngFor="let equipment of equipmentList"
+            [value]="equipment.id"
+          >
+            {{ equipment.name }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            itemForm.get('equipmentId')?.touched &&
+            itemForm.get('equipmentId')?.errors?.['required']
+          "
+          class="text-danger"
+        >
+          Equipment is required.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Completed Date</label>
+        <input
+          type="date"
+          class="form-control form-control-defaulted not-allowed"
+          formControlName="completedDate"
+        />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        placeholder="Enter details of scheduled work"
+      />
+      <div
+        *ngIf="
+          itemForm.get('description')?.touched &&
+          itemForm.get('description')?.errors?.['required']
+        "
+        class="text-danger"
+      >
+        Description is required.
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label">Status</label>
+      <select class="form-control form-select" formControlName="status">
+        <option value="">Choose Status</option>
+        <option value="Initiated">Initiated</option>
+      </select>
+      <div
+        *ngIf="
+          itemForm.get('status')?.touched &&
+          itemForm.get('status')?.errors?.['required']
+        "
+        class="text-danger"
+      >
+        Status is required.
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="itemForm.invalid"
+    >
+      Schedule Maintenance
+    </button>
+
+    <div *ngIf="showMessage" class="alert alert-success" role="alert">
       {{ responseMessage }}
     </div>
   
-    <!-- Error Message -->
-    <div *ngIf="showError" class="alert alert-danger">
+    <div *ngIf="showError" class="alert alert-danger" role="alert">
       {{ errorMessage }}
     </div>
-  
-    <!-- Form -->
-    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <!-- Hospital Dropdown -->
-        <div class="col-md-6 mb-3">
-          <label>Hospitals</label>
-          <select class="form-control" formControlName="hospitalId" (change)="onHospitalSelect()">
-            <option value="">Please Choose</option>
-            <option *ngFor="let hospital of hospitalList" [value]="hospital.id">{{ hospital.name }} - {{ hospital.location }}</option>
-          </select>
-          <div *ngIf="itemForm.get('hospitalId')?.touched && itemForm.get('hospitalId')?.errors?.['required']" class="text-danger">
-            Hospital is required.
-          </div>
-        </div>
-  
-        <!-- Scheduled Date -->
-        <div class="col-md-6 mb-3">
-          <label>Scheduled Date</label>
-          <input type="date" class="form-control" formControlName="scheduledDate" [min]="today"/>
-          <div *ngIf="itemForm.get('scheduledDate')?.touched && itemForm.get('scheduledDate')?.errors?.['required']" class="text-danger">
-            Scheduled date is required.
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-        <!-- Equipment Dropdown -->
-        <div class="col-md-6 mb-3">
-          <label>Equipment</label>
-          <select class="form-control" formControlName="equipmentId">
-            <option value="">Please Choose</option>
-            <option *ngFor="let equipment of equipmentList" [value]="equipment.id">{{ equipment.name }}</option>
-          </select>
-          <div *ngIf="itemForm.get('equipmentId')?.touched && itemForm.get('equipmentId')?.errors?.['required']" class="text-danger">
-            Equipment is required.
-          </div>
-        </div>
-  
-        <!-- Completed Date -->
-        <div class="col-md-6 mb-3">
-          <label>Completed Date</label>
-          <input type="date" class="form-control" formControlName="completedDate"/>
-        </div>
-      </div>
-  
-      <!-- Description -->
-      <div class="mb-3">
-        <label>Description</label>
-        <input type="text" class="form-control" formControlName="description" placeholder="Description" />
-        <div *ngIf="itemForm.get('description')?.touched && itemForm.get('description')?.errors?.['required']" class="text-danger">
-          Description is required.
-        </div>
-      </div>
-  
-      <!-- Status -->
-      <div class="mb-3">
-        <label>Status</label>
-        <select class="form-control" formControlName="status">
-          <option value="">Choose Status</option>
-          <option value="Initiated">Initiated</option>
-        </select>
-        <div *ngIf="itemForm.get('status')?.touched && itemForm.get('status')?.errors?.['required']" class="text-danger">
-          Status is required.
-        </div>
-      </div>
-  
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary w-100" [disabled]="itemForm.invalid">Submit</button>
-    </form>
+    
+  </form>
+
+</div>
